@@ -88,5 +88,5 @@ void Historial::limpiar() {
     }
 
 
-    this->ca
+    this->cantidad = 0;
 }
