@@ -977,7 +977,8 @@ bool Juego::verificarDerrota() {
     int total = 0;
 
 
-    for (int i = 0; i < 5; i++) {total +=this->formas[i].getMunicion();
+    for (int i = 0; i < 5; i++) {
+        total +=this->formas[i].getMunicion();
     }
 
 
