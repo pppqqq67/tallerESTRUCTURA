@@ -626,7 +626,7 @@ void Juego::disparar() {
 
     if (victoria) {
 
-        this->registrarTurno();
+        this->registrarTurno(indiceForma);
 
         return;
     }
@@ -647,7 +647,7 @@ void Juego::disparar() {
 
     if (victoria) {
 
-        this->registrarTurno();
+        this->registrarTurno(indiceForma);
 
         return;
     }
@@ -658,7 +658,7 @@ void Juego::disparar() {
 
     // GUARDAR HISTORIAL
 
-    this->registrarTurno();
+    this->registrarTurno(indiceForma);
 
 
     if (derrota) {
@@ -977,8 +977,7 @@ bool Juego::verificarDerrota() {
     int total = 0;
 
 
-    for (int i = 0; i < 5; i++) {
-        total +=this->formas[i].getMunicion();
+    for (int i = 0; i < 5; i++) {total +=this->formas[i].getMunicion();
     }
 
 
@@ -995,10 +994,9 @@ bool Juego::verificarDerrota() {
 
 // REGISTRAR TURNO
 
-void Juego::registrarTurno() {
+void Juego::registrarTurno(int indiceForma) {
 
-    RegistroTurno* nuevoHistorial =(RegistroTurno*) realloc(this->historialTurnos,(this->cantidadTurnos + 1)* sizeof(RegistroTurno));
-
+    RegistroTurno* nuevoHistorial =(RegistroTurno*) realloc(this->historialTurnos,(this->cantidadTurnos + 1) * sizeof(RegistroTurno));
 
     if (nuevoHistorial == nullptr) {
 
@@ -1008,26 +1006,25 @@ void Juego::registrarTurno() {
         return;
     }
 
-
-    this->historialTurnos =nuevoHistorial;
-
+    this->historialTurnos = nuevoHistorial;
 
     RegistroTurno& registro =this->historialTurnos[this->cantidadTurnos];
 
-
     // FORMA UTILIZADA
 
-    strcpy(registro.formaUtilizada,"No registrada");
+    strcpy(registro.formaUtilizada,this->formas[indiceForma].getNombre().c_str());
 
+    // SI ACERTO
 
-    registro.acerto =this->turnoAcerto;
+    registro.acerto = this->turnoAcerto;
 
+    // SI RECIBIO DANO
 
-    registro.recibioDanio =this->turnoRecibioDanio;
+    registro.recibioDanio = this->turnoRecibioDanio;
 
+    // MUNICION RECUPERADA
 
     registro.municionRecuperada =this->turnoMunicionRecuperada;
-
 
     this->cantidadTurnos++;
 }
